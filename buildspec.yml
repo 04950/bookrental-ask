@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    _PROJECT_NAME: "skccuser25-bookrental-ask"
+    _PROJECT_NAME: "skccuser25-ask"
 
 phases:
   install:
