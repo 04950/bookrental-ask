@@ -8,6 +8,7 @@ public class Pay {
     private String payDate;
     private String payCancelDate;
     private Double bookPrice;
+    private Long askId;
 
     public Long getId() {
         return id;
@@ -21,8 +22,8 @@ public class Pay {
     public void setStatus(String status) {
         this.status = status;
     }
-    public Long getBookId() {
-        return bookId;
+    public Long getBookId(Long bookId) {
+        return this.bookId;
     }
     public void setBookId(Long bookId) {
         this.bookId = bookId;
@@ -44,6 +45,10 @@ public class Pay {
     }
     public void setBookPrice(Double bookPrice) {
         this.bookPrice = bookPrice;
+    }
+    public Long getaskId() { return askId; }
+    public void setaskId(Long id) {
+        this.askId = id;
     }
 
 }

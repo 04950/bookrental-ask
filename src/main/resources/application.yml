@@ -37,6 +37,9 @@ logging:
     org.springframework.cloud: debug
 server:
   port: 8081
+api:
+  pay:
+    url: http://localhost:8082
 ---
 
 spring:
@@ -62,3 +65,6 @@ spring:
         event-out:
           destination: bookrental
           contentType: application/json
+api:
+  pay:
+    url: http://pay:8080
