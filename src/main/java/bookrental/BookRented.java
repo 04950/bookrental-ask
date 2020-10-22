@@ -3,7 +3,7 @@ package bookrental;
 public class BookRented extends AbstractEvent {
 
     private Long id;
-    private Long bookId;
+    private Long askId;
     private String status;
 
     public BookRented(){
@@ -17,12 +17,12 @@ public class BookRented extends AbstractEvent {
     public void setId(Long id) {
         this.id = id;
     }
-    public Long getBookId() {
-        return bookId;
+    public Long getAskID() {
+        return askId;
     }
 
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
+    public void setAskId(Long askId) {
+        this.askId = askId;
     }
     public String getStatus() {
         return status;
@@ -31,4 +31,6 @@ public class BookRented extends AbstractEvent {
     public void setStatus(String status) {
         this.status = status;
     }
+
+
 }

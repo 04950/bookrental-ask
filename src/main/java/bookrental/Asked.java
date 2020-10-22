@@ -2,7 +2,8 @@ package bookrental;
 
 public class Asked extends AbstractEvent {
 
-    private Long rentDate;
+    private Long id;
+    private Long bookId;
     private String askDate;
     private String status;
     private Double bookPrice;
@@ -11,15 +12,19 @@ public class Asked extends AbstractEvent {
         super();
     }
 
-    public Long getRentDate() {
-        return rentDate;
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setRentDate(Long rentDate) {
-        this.rentDate = rentDate;
+    public Long getbookId() {
+        return bookId;
     }
-    public String getAskDate() {
-        return askDate;
+
+    public void setbookId(Long bookId) {
+        this.bookId = bookId;
     }
 
     public void setAskDate(String askDate) {

@@ -18,71 +18,75 @@ public class Ask {
 
     @PostPersist
     public void onPostPersist(){
-        Asked asked = new Asked();
-        BeanUtils.copyProperties(this, asked);
-        asked.publishAfterCommit();
 
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+        System.out.println("##### onPostPersist status = " + this.getStatus());
+        if (this.getStatus().equals("ASKED")) {
+            Asked asked = new Asked();
+            BeanUtils.copyProperties(this, asked);
+            asked.publishAfterCommit();
 
-        bookrental.external.Pay pay = new bookrental.external.Pay();
-        // mappings goes here
-        AskApplication.applicationContext.getBean(bookrental.external.PayService.class)
-            .pay(pay);
+            //Following code causes dependency to external APIs
+            // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
 
-
+            bookrental.external.Pay pay = new bookrental.external.Pay();
+            // mappings goes here
+            pay.setaskId(this.getId());
+            pay.getBookId(this.getBookId());
+            pay.setStatus(this.getStatus());
+            AskApplication.applicationContext.getBean(bookrental.external.PayService.class)
+                    .pay(pay);
+        }
     }
 
-    @PreUpdate
-    public void onPreUpdate(){
-        AskCanceled askCanceled = new AskCanceled();
-        BeanUtils.copyProperties(this, askCanceled);
-        askCanceled.publishAfterCommit();
+    @PostUpdate
+    public void onPostUpdate(){
+        System.out.println("##### onPostUpdate status = " + this.getStatus());
+        if (this.getStatus().equals("ASK_CANCELED")) {
+            AskCanceled askCanceled = new AskCanceled();
+            BeanUtils.copyProperties(this, askCanceled);
+            askCanceled.publishAfterCommit();
 
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
+            //Following code causes dependency to external APIs
+            // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
 
-        bookrental.external.Pay pay = new bookrental.external.Pay();
-        // mappings goes here
-        AskApplication.applicationContext.getBean(bookrental.external.PayService.class)
-            .payCancel(pay);
+            bookrental.external.Pay pay = new bookrental.external.Pay();
+            // mappings goes here
+            pay.setaskId(this.getId());
+            pay.getBookId(this.getBookId());
+            pay.setStatus(this.getStatus());
+            AskApplication.applicationContext.getBean(bookrental.external.PayService.class)
+                    .payCancel(pay, this.getId());
 
-
+        }
     }
-
 
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
     public String getStatus() {
         return status;
     }
-
     public void setStatus(String status) {
         this.status = status;
     }
     public Long getBookId() {
         return bookId;
     }
-
     public void setBookId(Long bookId) {
         this.bookId = bookId;
     }
     public String getAskDate() {
         return askDate;
     }
-
     public void setAskDate(String askDate) {
         this.askDate = askDate;
     }
     public Double getBookPrice() {
         return bookPrice;
     }
-
     public void setBookPrice(Double bookPrice) {
         this.bookPrice = bookPrice;
     }
